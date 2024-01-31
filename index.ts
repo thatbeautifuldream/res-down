@@ -23,6 +23,11 @@ async function printPDF({ url }: PrintPDF) {
 
 const outputFilePath = "milind-mishra.pdf";
 
+// just to be extra sure lets first delete the file if it exists already
+if (fs.existsSync(outputFilePath)) {
+  fs.unlinkSync(outputFilePath); // delete file
+}
+
 fs.writeFileSync(
   outputFilePath,
   await printPDF({
