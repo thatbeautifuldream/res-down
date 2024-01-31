@@ -1,5 +1,5 @@
 {
-  "name": "resume-downloader-script",
+  "name": "res-down",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {
