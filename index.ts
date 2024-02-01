@@ -1,5 +1,8 @@
 import fs from "fs";
+import dotenv from "dotenv";
 import puppeteer from "puppeteer";
+
+dotenv.config();
 
 type PrintPDF = { url: string };
 
@@ -21,7 +24,7 @@ async function printPDF({ url }: PrintPDF) {
   return pdf;
 }
 
-const outputFilePath = "milind-mishra.pdf";
+const outputFilePath = process.env.OUTPUT_FILE_PATH as string;
 
 // just to be extra sure lets first delete the file if it exists already
 if (fs.existsSync(outputFilePath)) {
@@ -31,7 +34,7 @@ if (fs.existsSync(outputFilePath)) {
 fs.writeFileSync(
   outputFilePath,
   await printPDF({
-    url: "https://docs.google.com/document/d/1ujYf9MIOEeH3UpaHKZmXm_9-W6XpSQ5LAcLUv0ue32k/preview",
+    url: process.env.GOOGLE_DOCS_PREVIEW_URL as string,
   })
 );
 
