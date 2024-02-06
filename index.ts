@@ -1,6 +1,6 @@
 import inquirer from "inquirer";
-import updatePDF from "./lib/updatepdf";
-import updateS3 from "./lib/updates3";
+import updatePDF from "./lib/updatePDF.ts";
+import updateS3 from "./lib/updateS3.ts";
 
 const answer = await inquirer.prompt([
   {
