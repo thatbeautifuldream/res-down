@@ -14,7 +14,9 @@ export default async function updatePDF() {
   console.log(`Opening page and waiting for network idle`);
   await page.goto(url, { waitUntil: "networkidle0" });
   console.log(`Generating PDF with A4 format`);
-  const pdf = await page.pdf({ format: "A4" });
+  const pdf = await page.pdf({
+    format: "A4",
+  });
   console.log(`PDF generation completed`);
   await browser.close();
 
