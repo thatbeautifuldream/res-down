@@ -1,3 +1,4 @@
+import fs from "fs";
 import { $ } from "bun";
 import dotenv from "dotenv";
 
@@ -10,6 +11,9 @@ export default async function updateS3() {
   console.log(`Uploading PDF to S3`);
   await $`aws s3 rm s3://${s3BucketName}/${outputFilePath}`;
   await $`aws s3 cp ./${outputFilePath} s3://${s3BucketName}/${outputFilePath}`;
-  await $`aws s3 presign s3://${s3BucketName}/${outputFilePath}`;
-  console.log(`PDF uploaded to S3`);
+  const presignedUrl =
+    await $`aws s3 presign s3://${s3BucketName}/${outputFilePath}`.text();
+  console.log(`PDF uploaded to S3, here is the presigned URL: ${presignedUrl}`);
+  fs.writeFileSync("./presignedURL.txt", presignedUrl);
+  console.log(`Presigned URL saved to: ./presignedURL.txt`);
 }
