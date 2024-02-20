@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import fs from "fs";
-import puppeteer, { Browser } from "puppeteer";
+import puppeteer from "puppeteer";
 
 dotenv.config();
 

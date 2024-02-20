@@ -2,12 +2,20 @@ import inquirer from "inquirer";
 import getPresignedPDF from "./lib/getPresignedPDF.ts";
 import updatePDF from "./lib/updatePDF.ts";
 import updateS3 from "./lib/updateS3.ts";
+import updatePortfolio from "./lib/updatePortfolio.ts";
 
 const answer = await inquirer.prompt([
   {
     type: "list",
     name: "updatePDF",
     message: "Do you want you resume updated locally?",
+    choices: ["Yes", "No"],
+  },
+  {
+    when: (answers) => answers.updatePDF === "Yes",
+    type: "list",
+    name: "updatePortfolio",
+    message: "Do you want to update the portfolio with the new resume?",
     choices: ["Yes", "No"],
   },
   {
@@ -28,6 +36,9 @@ const answer = await inquirer.prompt([
 
 if (answer.updatePDF === "Yes") {
   await updatePDF();
+  if (answer.updatePortfolio === "Yes") {
+    await updatePortfolio();
+  }
   if (answer.updateS3 === "Yes") {
     await updateS3();
   }
